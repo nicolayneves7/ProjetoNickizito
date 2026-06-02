@@ -2,7 +2,7 @@
 // ./scr/components/RoundedButton.tsx
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
-import { COLORS } from "../Apptheme";
+import { COLORS } from "../Presentation/theme/Apptheme";
 
 
 interface Props {
