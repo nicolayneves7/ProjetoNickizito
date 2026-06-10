@@ -1,19 +1,22 @@
 import React from "react";
-import { StyleSheet, View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
-import { COLORS } from "../../Presentation/theme/Apptheme";
+import { StyleSheet, View, Text, Image, TextInput, TouchableOpacity, } from "react-native";
+
+import { COLORS } from "../../theme/Apptheme";
+
+import RegisterViewModel from './viewmodel'
 
 export const RegisterScreen = () => {
     return (
         <View style={styles.container}>
             <Image
                 style={styles.imageFundo}
-                source={require("../../assets/img/chef.jpg")}
+                source={require("../../../../assets/img/chef.jpg")}
             />
 
             <View style={styles.imageProfileContainer}>
                 <Image
                     style={styles.imageProfile}
-                    source={require("../../assets/img/user_image.png")}
+                    source={require("../../../../assets/img/user_image.png")}
                 />
 
                 <Text style={styles.imageProfileText}>
@@ -29,7 +32,7 @@ export const RegisterScreen = () => {
                 <View style={styles.frmInput}>
                     <Image
                         style={styles.frmIcon}
-                        source={require("../../assets/img/user.png")}
+                        source={require("../../../../assets/img/user.png")}
                     />
 
                     <TextInput
@@ -41,7 +44,7 @@ export const RegisterScreen = () => {
                 <View style={styles.frmInput}>
                     <Image
                         style={styles.frmIcon}
-                        source={require(".../../assets/img/my_user.png")}
+                        source={require("../../../../assets/img/my_user.png")}
                     />
 
                     <TextInput
@@ -53,7 +56,7 @@ export const RegisterScreen = () => {
                 <View style={styles.frmInput}>
                     <Image
                         style={styles.frmIcon}
-                        source={require("../../assets/img/email.png")}
+                        source={require("../../../../assets/img/email.png")}
                     />
 
                     <TextInput
@@ -66,7 +69,7 @@ export const RegisterScreen = () => {
                 <View style={styles.frmInput}>
                     <Image
                         style={styles.frmIcon}
-                        source={require("../../assets/img/phone.png")}
+                        source={require("../../../../assets/img/phone.png")}
                     />
 
                     <TextInput
@@ -79,7 +82,7 @@ export const RegisterScreen = () => {
                 <View style={styles.frmInput}>
                     <Image
                         style={styles.frmIcon}
-                        source={require("../../assets/img/password.png")}
+                        source={require("../../../../assets/img/password.png")}
                     />
 
                     <TextInput
@@ -92,7 +95,7 @@ export const RegisterScreen = () => {
                 <View style={styles.frmInput}>
                     <Image
                         style={styles.frmIcon}
-                        source={require('../../../assets/img/confirm_password.png')}
+                        source={require("../../../../assets/img/confirm_password.png")}
                     />
 
                     <TextInput
@@ -197,4 +200,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default RegisterScreen
+export default RegisterScreen;

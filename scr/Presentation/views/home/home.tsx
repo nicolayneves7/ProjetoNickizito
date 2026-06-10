@@ -1,14 +1,24 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TextInput, Button, ToastAndroid, Platform, Alert } from 'react-native';
+import React, { useState } from "react";
+import { View, Text, Image, StyleSheet, TextInput, Button, ToastAndroid, Platform, Alert, TouchableOpacity } from 'react-native';
+// Importação dos elementos de navegação
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../../App';
+
+// Componente 
 import { COLORS } from "../../theme/Apptheme";
+import { CustomTextInput } from "../../../components/CustomTextInput";
 import { RoundedButton } from "../../../components/RoundedButton";
-// import { COLORS } from "../../Theme/AppTheme";
-// import { RoundedButton } from "../../components/RoundedButton";
-
-
+// ViewModel
+import HomeViewModel from './viewmodel';
 
 
 export const HomeScreen = () => {
+
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
+    const { userEmail, userPassword, onChange, login } = HomeViewModel();
+
     const testOS = () => {
         if (Platform.OS === 'android') {
             //Android: mostra o Toast nativo
@@ -17,9 +27,10 @@ export const HomeScreen = () => {
             //Navegar: usa o alert do JS classico
             alert('Teste de Login! - WEB');
         } else {//IOS: usa o alert nativo do IPhone
-            Alert.alert('Aviso', 'Teste de Login! 0 iPhone');
+            Alert.alert('Aviso', 'Teste de Login! - iPhone');
         }
     };
+
     return (
         <View style={styles.container}>
             <Image
@@ -27,60 +38,52 @@ export const HomeScreen = () => {
                 style={styles.imgBg}
             />
 
-            <View style={styles.logoContainer}>
-                <Image
-                    source={require('../../../../assets/img/logo.png')}
-                    style={styles.logoImg}
-                />
-
-                <Text style={styles.logoTxt}>
-                    Restaurante | Pizzaria Tito
-                </Text>
-            </View>
-
             <View style={styles.frm}>
                 <Text style={styles.frmTitle}>
                     Entrar
                 </Text>
+                <CustomTextInput
+                    image={require('../../../../assets/img/user.png')}
+                    placeholder='Digite seu Email / Usuário...'
+                    keyboardType="email-address"
+                    secureTextEntry={false}
+                    property='userEmail'
+                    onChangeText={onChange}
+                    value={userEmail}
+                />
+                <CustomTextInput
+                    image={require('../../../../assets/img/password.png')}
+                    placeholder='Digite sua senha...'
+                    keyboardType="default"
+                    secureTextEntry={true}
+                    property='userPassword'
+                    onChangeText={onChange}
+                    value={userPassword}
+                />
 
-                <View style={styles.frmInput}>
-                    <Image
-                        source={require('../../../../assets/img/user.png')}
-                        style={styles.frmIco}
-                    />
-
-                    <TextInput
-                        placeholder="Digite seu Email / Usuário..."
-                        keyboardType="email-address"
-                        style={styles.txtInput}
-                    />
-                </View>
-
-                <View style={styles.frmInput}>
-                    <Image
-                        source={require('../../../../assets/img/password.png')}
-                        style={styles.frmIco}
-                    />
-
-                    <TextInput
-                        placeholder="Digite sua senha..."
-                        keyboardType="default"
-                        secureTextEntry={true}
-                        style={styles.txtInput}
-                    />
-                </View>
                 <View style={{ marginTop: 30 }}>
                     <RoundedButton
                         text='Entrar'
-                        onPress={testOS}
-                    //onPress={() => ToastAndroid.show('Teste de Login!', ToastAndroid.SHORT)} 
+                        onPress={() => login()}
+
                     />
                 </View>
 
 
                 <View style={styles.frmRegistre}>
                     <Text>Crie sua conta!</Text>
-                    <Text style={styles.txtRegistre}> Registre-se</Text>
+
+                    <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
+                        <Text style={styles.txtRegistre}> Registre-se</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.frmRegistre}>
+                    <Text>Esqueceu sua senha?</Text>
+
+                    <TouchableOpacity onPress={() => navigation.navigate('RecuperarSenha')}>
+                        <Text style={styles.txtRegistre}> Alterar Senha</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>
@@ -101,28 +104,9 @@ const styles = StyleSheet.create({
         position: 'absolute',
     },
 
-    logoContainer: {
-        position: 'absolute',
-        alignSelf: 'center',
-        top: '15%',
-        alignItems: 'center',
-    },
-
-    logoImg: {
-        width: 100,
-        height: 100,
-    },
-
-    logoTxt: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: COLORS.primary,
-        marginTop: 10,
-    },
-
     frm: {
         width: '100%',
-        height: '40%',
+        height: '45%',
         backgroundColor: COLORS.bgColor,
         position: 'absolute',
         bottom: 0,
@@ -137,29 +121,10 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         color: COLORS.bgBlack,
     },
-
-    frmInput: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-
-    frmIco: {
-        width: 25,
-        height: 25,
-        marginTop: 10,
-    },
-
-    txtInput: {
-        flex: 1,
-        borderBottomWidth: 2,
-        marginLeft: 15,
-        fontSize: 16,
-    },
     frmRegistre: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop: 15,
+        marginTop: 10,
     },
 
     txtRegistre: {

@@ -15,7 +15,7 @@ export const RoundedButton = ({ text, onPress }: Props) => {
     return (
         <TouchableOpacity
             //3. Passamos a função recebida para o botão nativo
-            onPress={() => { onPress }}
+            onPress={() =>  onPress ()}
             style={styles.bnt} >
 
             <Text style={styles.txtBnt}>{text}</Text>
