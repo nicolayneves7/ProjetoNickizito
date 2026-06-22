@@ -1,23 +1,24 @@
 import React, { useState } from "react";
-import { View, Text, Image, StyleSheet, TextInput, Button, ToastAndroid, Platform, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TextInput, Button, ToastAndroid, Platform, Alert, TouchableOpacity } from 'react-native';
 // Importação dos elementos de navegação
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../../../../App';
+import { RootStackParamList } from "../../../../Aula03";
 
 // Componente 
-import { COLORS } from "../../theme/Apptheme";
 import { CustomTextInput } from "../../../components/CustomTextInput";
-import { RoundedButton } from "../../../components/RoundedButton";
+import { RoundedButton } from '../../../components/RoundedButton';
+import styles from "../../theme/HomeStyle";
+
 // ViewModel
-import HomeViewModel from './viewmodel';
+import useViewModel from './viewmodel';
 
 
 export const HomeScreen = () => {
 
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-    const { userEmail, userPassword, onChange, login } = HomeViewModel();
+    const { userEmail, userPassword, onChange, login } = useViewModel();
 
     const testOS = () => {
         if (Platform.OS === 'android') {
@@ -65,7 +66,7 @@ export const HomeScreen = () => {
                     <RoundedButton
                         text='Entrar'
                         onPress={() => login()}
-
+                    //onPress={() => ToastAndroid.show('Teste de Login!', ToastAndroid.SHORT)} 
                     />
                 </View>
 
@@ -89,53 +90,5 @@ export const HomeScreen = () => {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: COLORS.bgColor,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-
-    imgBg: {
-        width: '100%',
-        height: '100%',
-        position: 'absolute',
-    },
-
-    frm: {
-        width: '100%',
-        height: '45%',
-        backgroundColor: COLORS.bgColor,
-        position: 'absolute',
-        bottom: 0,
-        borderTopLeftRadius: 40,
-        borderTopRightRadius: 40,
-        padding: 20,
-    },
-
-    frmTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 20,
-        color: COLORS.bgBlack,
-    },
-    frmRegistre: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginTop: 10,
-    },
-
-    txtRegistre: {
-        fontStyle: 'italic',
-        fontWeight: 'bold',
-        borderBottomColor: COLORS.secundary,
-        borderBottomWidth: 1,
-        marginLeft: 5,
-        color: COLORS.secundary,
-
-    },
-});
 
 export default HomeScreen
