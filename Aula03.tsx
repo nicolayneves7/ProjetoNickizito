@@ -12,7 +12,7 @@ export type RootStackParamList = {
   RecuperarSenha: undefined;
 };
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = () => {
   return (

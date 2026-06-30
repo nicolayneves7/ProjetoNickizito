@@ -11,14 +11,14 @@ const RecuperarSenha = () => {
     // 1. CHAMA A VIEWMODEL: Pega os estados e funções criados lá
     const { userEmail, userPassword, onChange, login } = RecuperarSenhaViewModel();
 
-    // 2. FUNÇÃO CONTROLADORA: Decide se apenas mostra as senhas ou se executa o console.log
+    // 2. FUNÇÃO CONTROLADORA: Decide se apenas mostra as senhas ou se executa o login/alteração
     const handleAcaoBotao = () => {
         if (!mostrarCamposSenha) {
             // Primeira etapa: Usuário digitou o e-mail e clicou em "Enviar"
             setMostrarCamposSenha(true);
         } else {
             // Segunda etapa: Campos de senha visíveis, usuário clicou em "Alterar Senha"
-            login(); // Dispara o console.log da ViewModel com os dados capturados
+            login(); // Dispara a função na ViewModel com os dados capturados
         }
     };
 
@@ -52,13 +52,15 @@ const RecuperarSenha = () => {
                         source={require("../../../../assets/img/email.png")}
                     />
 
-                    {/* 3. VÍNCULO DO E-MAIL: Passando o valor e atualizando a ViewModel */}
+                    {/* CORRIGIDO: Vinculado a chave correta 'userEmail' para a ViewModel salvar o texto */}
                     <TextInput
                         style={styles.txtInput}
                         placeholder="Digite seu e-mail"
+                        placeholderTextColor="#999"
                         keyboardType="email-address"
+                        autoCapitalize="none"
                         value={userEmail}
-                        onChangeText={(text) => onChange('Email atualizado', text)}
+                        onChangeText={(text) => onChange('userEmail', text)}
                     />
                 </View>
 
@@ -70,13 +72,14 @@ const RecuperarSenha = () => {
                                 source={require("../../../../assets/img/password.png")}
                             />
 
-                            {/* 4. VÍNCULO DA SENHA: Atualizando a ViewModel */}
+                            {/* CORRIGIDO: Vinculado a chave correta 'userPassword' */}
                             <TextInput
                                 style={styles.txtInput}
                                 placeholder="Nova senha"
+                                placeholderTextColor="#999"
                                 secureTextEntry
                                 value={userPassword}
-                                onChangeText={(text) => onChange('Atualizar a senha', text)}
+                                onChangeText={(text) => onChange('userPassword', text)}
                             />
                         </View>
 
@@ -89,9 +92,10 @@ const RecuperarSenha = () => {
                             <TextInput
                                 style={styles.txtInput}
                                 placeholder="Confirmar senha"
+                                placeholderTextColor="#999"
                                 secureTextEntry
-                            // Se quiser controlar o campo confirmar senha futuramente,
-                            // adicione ele na ViewModel e vincule aqui.
+                            // Caso adicione futuramente a validação de confirmação na VM:
+                            // onChangeText={(text) => onChange('userConfirmPassword', text)}
                             />
                         </View>
                     </>
@@ -147,12 +151,13 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
         paddingHorizontal: 20,
-        paddingTop: 90,
+        paddingTop: 40, // Reduzido o padding vertical exagerado para os inputs subirem um pouco
     },
     frmTitle: {
         fontSize: 30,
         fontWeight: "bold",
         marginBottom: 15,
+        color: '#000', // Garante cor preta/escura para o título do form
     },
     frmInput: {
         flexDirection: "row",
@@ -169,6 +174,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: "#CFCFCF",
         paddingBottom: 8,
+        color: '#000', // CORRIGIDO: Força a cor da letra digitada a ser preta
     },
     containerBotao: {
         marginTop: 30,
